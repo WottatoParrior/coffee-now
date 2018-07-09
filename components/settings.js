@@ -2,14 +2,49 @@ import React from "react";
 import { View, Text, TextInput, FlatList, Button } from "react-native";
 import Catalog from "./catalog";
 
-export default class Settings extends React.Component {
+export default class App extends React.Component {
+  render() {
+    return <Settings />;
+  }
+}
+
+class Settings extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { shops: null, selected: false, shopMenu: null };
+    this.state = { shops: null, shopMenu: null };
     this._onPressButton = this._onPressButton.bind(this);
   }
+
+  render() {
+    const { shops } = this.state;
+    const { shopMenu } = this.state;
+    return (
+      <View>
+        {!shops && <Text> Loading </Text>}
+        {shops &&
+          shopMenu == null && (
+            <FlatList
+              showsHorizontalScrollIndicator={true}
+              data={shops}
+              renderItem={({ item }) => (
+                <Button
+                  onPress={() => this._onPressButton(item)}
+                  title={item.name}
+                />
+              )}
+              keyExtractor={item => item.id}
+            />
+          )}
+        <FlatList
+          data={shopMenu}
+          renderItem={({ item }) => <Text>{item.name} </Text>}
+          keyExtractor={item => item.id}
+        />
+      </View>
+    );
+  }
   _onPressButton = item => {
-    this.setState({ selected: true, shopMenu: item.menu.products });
+    this.setState({ shopMenu: item.menu.products });
   };
   componentDidMount() {
     fetch("https://coffeenow-api.herokuapp.com/shops")
@@ -21,43 +56,5 @@ export default class Settings extends React.Component {
       .catch(error => {
         console.error(error);
       });
-  }
-
-  render() {
-    const { shops } = this.state;
-    const { shopMenu } = this.state;
-    if (!shops) {
-      return (
-        <View>
-          <Text> Loading </Text>
-        </View>
-      );
-    }
-    if (shopMenu == null) {
-      return (
-        <View>
-          <FlatList
-            data={shops}
-            renderItem={({ item }) => (
-              <Button
-                onPress={() => this._onPressButton(item)}
-                title={item.name}
-              />
-            )}
-            keyExtractor={item => item.id}
-          />
-        </View>
-      );
-    }
-
-    return (
-      <View>
-        <FlatList
-          data={shopMenu}
-          renderItem={({ item }) => <Text>{item.name} </Text>}
-          keyExtractor={item => item.id}
-        />
-      </View>
-    );
   }
 }
