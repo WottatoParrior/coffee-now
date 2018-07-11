@@ -11,13 +11,15 @@ export default class App extends React.Component {
 class Settings extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { shops: null, shopMenu: null };
+    this.state = { shops: null, shopMenu: null, coffeeTypeName: null };
     this._onPressButton = this._onPressButton.bind(this);
+    this._onPressCoffeeButton = this._onPressCoffeeButton.bind(this);
   }
 
   render() {
     const { shops } = this.state;
     const { shopMenu } = this.state;
+    const { coffeeTypeName } = this.state;
     return (
       <View>
         {!shops && <Text> Loading </Text>}
@@ -35,16 +37,29 @@ class Settings extends React.Component {
               keyExtractor={item => item.id}
             />
           )}
-        <FlatList
-          data={shopMenu}
-          renderItem={({ item }) => <Text>{item.name} </Text>}
-          keyExtractor={item => item.id}
-        />
+        {!coffeeTypeName && (
+          <FlatList
+            data={shopMenu}
+            renderItem={({ item }) => (
+              <Button
+                onPress={() => this._onPressCoffeeButton(item)}
+                title={item.name}
+              />
+            )}
+            keyExtractor={item => item.id}
+          />
+        )}
+        {coffeeTypeName && (
+          <Catalog coffeeTypeName={this.state.coffeeTypeName} />
+        )}
       </View>
     );
   }
   _onPressButton = item => {
     this.setState({ shopMenu: item.menu.products });
+  };
+  _onPressCoffeeButton = item => {
+    this.setState({ coffeeTypeName: item.name });
   };
   componentDidMount() {
     fetch("https://coffeenow-api.herokuapp.com/shops")
