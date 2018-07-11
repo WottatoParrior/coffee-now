@@ -8,6 +8,7 @@ import {
   Button
 } from "react-native";
 import Catalog from "./catalog";
+import { CardViewWithImage } from "react-native-simple-card-view";
 
 export default class App extends React.Component {
   render() {
@@ -33,17 +34,31 @@ class Settings extends React.Component {
         {shops &&
           shopMenu == null && (
             <View style={styles.header}>
-              <Text>ΕΠΕΛΕΞΕ ΤΟ ΚΑΤΑΣΤΗΜΑ ΠΟΥ ΣΕ ΕΞΥΠΗΡΕΤΕΙ</Text>
-              <FlatList
-                data={shops}
-                renderItem={({ item }) => (
-                  <Button
-                    onPress={() => this._onPressButton(item)}
-                    title={item.name}
-                  />
-                )}
-                keyExtractor={item => item.id}
-              />
+              <Text style={{ marginBottom: "5%", alignSelf: "center" }}>
+                ΕΠΕΛΕΞΕ ΤΟ ΚΑΤΑΣΤΗΜΑ ΠΟΥ ΣΕ ΕΞΥΠΗΡΕΤΕΙ
+              </Text>
+              <View style={{ height: "98%" }}>
+                <FlatList
+                  data={shops}
+                  renderItem={({ item }) => (
+                    <CardViewWithImage
+                      width={300}
+                      content={
+                        "Lorem ipsum dolor sit amet, consectetur adipisicing elit. At aut distinctio!"
+                      }
+                      source={{ uri: "https://placeimg.com/640/480/tech" }}
+                      title={item.name}
+                      imageWidth={100}
+                      imageHeight={100}
+                      roundedImage={true}
+                      roundedImageValue={50}
+                      imageMargin={{ top: 10 }}
+                      onPress={() => this._onPressButton(item)}
+                    />
+                  )}
+                  keyExtractor={item => item.id}
+                />
+              </View>
             </View>
           )}
         {!coffeeTypeName && (
@@ -89,6 +104,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between"
   },
   header: {
-    marginTop: "20%"
+    marginTop: "15%"
   }
 });
