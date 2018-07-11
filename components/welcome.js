@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Button, Text, Alert, StyleSheet, Image } from "react-native";
 import Settings from "./settings";
+import { RkButton, RkChoiceGroup, RkChoice } from "react-native-ui-kitten";
 
 export default class Welcome extends React.Component {
   constructor(props) {
@@ -12,14 +13,24 @@ export default class Welcome extends React.Component {
   };
 
   render() {
-    // if (this.state.visible) {
-    //   return <Settings />;
-    // }
+    if (this.state.visible) {
+      return <Settings />;
+    }
     return (
       <View style={styles.general}>
-        <Text style={styles.intro}>Welcome </Text>
+        <Image
+          style={{ marginLeft: 15 }}
+          source={require("../assets/img/logo.png")}
+        />
         <View style={styles.buttonStart}>
-          <Button onPress={this._onPressButton} title="Create your coffee" />
+          <RkButton
+            rkType="rounded"
+            onPress={this._onPressButton}
+            contentStyle={{ alignSelf: "center", paddingRight: 22 }}
+            style={styles.button}
+          >
+            ΦΤΙΑΞΕ ΤΟΝ ΚΑΦΕ ΣΟΥ
+          </RkButton>
         </View>
       </View>
     );
@@ -30,12 +41,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  intro: {
-    marginTop: "30%",
-    fontSize: 30,
-    fontWeight: "600"
-  },
-  buttonStart: {
-    marginTop: "40%"
+  button: {
+    width: "70%",
+    height: "30%",
+    backgroundColor: "#c67a33"
   }
 });

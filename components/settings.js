@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, TextInput, FlatList, Button } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  FlatList,
+  Button
+} from "react-native";
 import Catalog from "./catalog";
 
 export default class App extends React.Component {
@@ -21,21 +28,23 @@ class Settings extends React.Component {
     const { shopMenu } = this.state;
     const { coffeeTypeName } = this.state;
     return (
-      <View>
+      <View style={styles.general}>
         {!shops && <Text> Loading </Text>}
         {shops &&
           shopMenu == null && (
-            <FlatList
-              showsHorizontalScrollIndicator={true}
-              data={shops}
-              renderItem={({ item }) => (
-                <Button
-                  onPress={() => this._onPressButton(item)}
-                  title={item.name}
-                />
-              )}
-              keyExtractor={item => item.id}
-            />
+            <View style={styles.header}>
+              <Text>ΕΠΕΛΕΞΕ ΤΟ ΚΑΤΑΣΤΗΜΑ ΠΟΥ ΣΕ ΕΞΥΠΗΡΕΤΕΙ</Text>
+              <FlatList
+                data={shops}
+                renderItem={({ item }) => (
+                  <Button
+                    onPress={() => this._onPressButton(item)}
+                    title={item.name}
+                  />
+                )}
+                keyExtractor={item => item.id}
+              />
+            </View>
           )}
         {!coffeeTypeName && (
           <FlatList
@@ -73,3 +82,13 @@ class Settings extends React.Component {
       });
   }
 }
+
+const styles = StyleSheet.create({
+  general: {
+    alignItems: "center",
+    justifyContent: "space-between"
+  },
+  header: {
+    marginTop: "20%"
+  }
+});
