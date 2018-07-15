@@ -5,10 +5,12 @@ import {
   StyleSheet,
   TextInput,
   FlatList,
-  Button
+  Image,
+  TouchableOpacity
 } from "react-native";
 import Catalog from "./catalog";
 import { CardViewWithImage } from "react-native-simple-card-view";
+import { RkCard, RkTheme, RkCardImage } from "react-native-ui-kitten";
 
 export default class App extends React.Component {
   render() {
@@ -29,7 +31,7 @@ class Settings extends React.Component {
     const { shopMenu } = this.state;
     const { coffeeTypeName } = this.state;
     return (
-      <View style={styles.general}>
+      <View contentContainerStyle={styles.general}>
         {!shops && <Text> Loading </Text>}
         {shops &&
           shopMenu == null && (
@@ -42,7 +44,7 @@ class Settings extends React.Component {
                   data={shops}
                   renderItem={({ item }) => (
                     <CardViewWithImage
-                      width={300}
+                      width={350}
                       content={
                         "Lorem ipsum dolor sit amet, consectetur adipisicing elit. At aut distinctio!"
                       }
@@ -63,12 +65,14 @@ class Settings extends React.Component {
           )}
         {!coffeeTypeName && (
           <FlatList
+            style={{ marginTop: "10%" }}
             data={shopMenu}
             renderItem={({ item }) => (
-              <Button
-                onPress={() => this._onPressCoffeeButton(item)}
-                title={item.name}
-              />
+              <TouchableOpacity onPress={() => this._onPressCoffeeButton(item)}>
+                <View style={styles.card}>
+                  <Text> {item.name} </Text>
+                </View>
+              </TouchableOpacity>
             )}
             keyExtractor={item => item.id}
           />
@@ -101,9 +105,19 @@ class Settings extends React.Component {
 const styles = StyleSheet.create({
   general: {
     alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    backgroundColor: "#f2f4f7",
+    flex: 1
   },
   header: {
     marginTop: "15%"
+  },
+  card: {
+    backgroundColor: "white",
+    borderWidth: 0.8,
+    borderColor: "#e0e2e5",
+    marginVertical: 1,
+    width: 350,
+    height: 60
   }
 });
