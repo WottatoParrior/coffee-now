@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, AsyncStorage } from "react-native";
+import { View, AsyncStorage, AppRegistry } from "react-native";
 
 import OrderComponent from "./components/order";
 import Welcome from "./components/welcome";
@@ -34,3 +34,4 @@ export default class App extends React.Component {
     return <OrderComponent {...this.state} />;
   }
 }
+AppRegistry.registerComponent("CoffeeNow", () => App);

@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import Catalog from "./catalog";
 import { CardViewWithImage } from "react-native-simple-card-view";
-import { RkCard, RkTheme, RkCardImage } from "react-native-ui-kitten";
 
 export default class App extends React.Component {
   render() {
@@ -35,47 +34,51 @@ class Settings extends React.Component {
         {!shops && <Text> Loading </Text>}
         {shops &&
           shopMenu == null && (
-            <View style={styles.header}>
-              <Text style={{ marginBottom: "5%", alignSelf: "center" }}>
-                ΕΠΕΛΕΞΕ ΤΟ ΚΑΤΑΣΤΗΜΑ ΠΟΥ ΣΕ ΕΞΥΠΗΡΕΤΕΙ
-              </Text>
-              <View style={{ height: "98%" }}>
-                <FlatList
-                  data={shops}
-                  renderItem={({ item }) => (
-                    <CardViewWithImage
-                      width={350}
-                      content={
-                        "Lorem ipsum dolor sit amet, consectetur adipisicing elit. At aut distinctio!"
-                      }
-                      source={{ uri: "https://placeimg.com/640/480/tech" }}
-                      title={item.name}
-                      imageWidth={100}
-                      imageHeight={100}
-                      roundedImage={true}
-                      roundedImageValue={50}
-                      imageMargin={{ top: 10 }}
-                      onPress={() => this._onPressButton(item)}
-                    />
-                  )}
-                  keyExtractor={item => item.id}
-                />
+            <View style={styles.general}>
+              <View>
+                <Text>ΕΠΕΛΕΞΕ ΤΟ ΜΑΓΑΖΙ ΣΟΥ</Text>
               </View>
+              <FlatList
+                style={{ height: "93%" }}
+                scrollEnabled={true}
+                data={shops}
+                renderItem={({ item }) => (
+                  <CardViewWithImage
+                    width={340}
+                    content={
+                      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. At aut distinctio!"
+                    }
+                    source={{ uri: "https://placeimg.com/640/480/tech" }}
+                    title={item.name}
+                    imageWidth={100}
+                    imageHeight={100}
+                    roundedImage={true}
+                    roundedImageValue={50}
+                    imageMargin={{ top: 10 }}
+                    onPress={() => this._onPressButton(item)}
+                  />
+                )}
+                keyExtractor={item => item.id}
+              />
             </View>
           )}
         {!coffeeTypeName && (
-          <FlatList
-            style={{ marginTop: "10%" }}
-            data={shopMenu}
-            renderItem={({ item }) => (
-              <TouchableOpacity onPress={() => this._onPressCoffeeButton(item)}>
-                <View style={styles.card}>
-                  <Text> {item.name} </Text>
-                </View>
-              </TouchableOpacity>
-            )}
-            keyExtractor={item => item.id}
-          />
+          <View style={styles.general}>
+            <FlatList
+              style={{ marginTop: "10%" }}
+              data={shopMenu}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  onPress={() => this._onPressCoffeeButton(item)}
+                >
+                  <View style={styles.card}>
+                    <Text> {item.name} </Text>
+                  </View>
+                </TouchableOpacity>
+              )}
+              keyExtractor={item => item.id}
+            />
+          </View>
         )}
         {coffeeTypeName && (
           <Catalog coffeeTypeName={this.state.coffeeTypeName} />
@@ -104,13 +107,7 @@ class Settings extends React.Component {
 
 const styles = StyleSheet.create({
   general: {
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: "#f2f4f7",
-    flex: 1
-  },
-  header: {
-    marginTop: "15%"
+    alignItems: "center"
   },
   card: {
     backgroundColor: "white",

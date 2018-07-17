@@ -1,45 +1,23 @@
 import React from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  FlatList,
-  Button,
-  TouchableOpacity
-} from "react-native";
-import { RkButton, RkChoiceGroup, RkChoice } from "react-native-ui-kitten";
+import { View, Text, StyleSheet } from "react-native";
 
 export default class Catalog extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { checked: true };
+  }
   render() {
     return (
-      <View>
-        <Text> {this.props.coffeeTypeName} </Text>
-        <Text> Ειδος ζαχαρης </Text>
-        <RkChoiceGroup selectedIndex={2} radio>
-          <TouchableOpacity choiceTrigger>
-            <View style={{ flexDirection: "column", alignItems: "center" }}>
-              <RkChoice rkType="radio" />
-              <Text>Option 1</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity choiceTrigger>
-            <View style={{ flexDirection: "column", alignItems: "center" }}>
-              <RkChoice rkType="radio" />
-              <Text>Option 2</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity choiceTrigger>
-            <View style={{ flexDirection: "column", alignItems: "center" }}>
-              <RkChoice rkType="radio" />
-              <Text>Option 3</Text>
-            </View>
-          </TouchableOpacity>
-        </RkChoiceGroup>
-
-        <Text> Extra </Text>
-        <Text> Decaff </Text>
-        <Text> Special instructions </Text>
+      <View style={styles.general}>
+        <Text> {this.props.coffeeTypeName} fghjgjuhjgj </Text>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  general: {
+    flexDirection: "column",
+    alignItems: "center"
+  }
+});

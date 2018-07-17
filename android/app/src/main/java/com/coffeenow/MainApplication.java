@@ -1,4 +1,4 @@
-package com.awsomeproject;
+package com.coffeenow;
 
 import android.app.Application;
 
