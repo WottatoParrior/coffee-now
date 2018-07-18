@@ -27,6 +27,8 @@
     "expo": "^27.0.1",
     "react": "16.3.1",
     "react-native": "~0.55.2",
+    "react-native-radio-buttons": "^1.0.0",
+    "react-native-radio-buttons-group": "^1.0.7",
     "react-native-simple-card-view": "^0.3.0"
   }
 }

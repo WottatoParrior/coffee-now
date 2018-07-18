@@ -20,7 +20,12 @@ export default class App extends React.Component {
 class Settings extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { shops: null, shopMenu: null, coffeeTypeName: null };
+    this.state = {
+      shops: null,
+      shopMenu: null,
+      coffeeTypeName: null,
+      shopId: null
+    };
     this._onPressButton = this._onPressButton.bind(this);
     this._onPressCoffeeButton = this._onPressCoffeeButton.bind(this);
   }
@@ -81,16 +86,20 @@ class Settings extends React.Component {
           </View>
         )}
         {coffeeTypeName && (
-          <Catalog coffeeTypeName={this.state.coffeeTypeName} />
+          <Catalog
+            coffeeTypeName={this.state.coffeeTypeName}
+            shopId={this.state.shopId}
+            productId={this.state.productId}
+          />
         )}
       </View>
     );
   }
   _onPressButton = item => {
-    this.setState({ shopMenu: item.menu.products });
+    this.setState({ shopMenu: item.menu.products, shopId: item.id });
   };
   _onPressCoffeeButton = item => {
-    this.setState({ coffeeTypeName: item.name });
+    this.setState({ coffeeTypeName: item.name, productId: item.id });
   };
   componentDidMount() {
     fetch("https://coffeenow-api.herokuapp.com/shops")
