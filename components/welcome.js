@@ -27,11 +27,11 @@ export default class Welcome extends React.Component {
       <View style={styles.general}>
         <View>
           <Image
-            style={{ marginLeft: 15, marginTop: -40 }}
+            style={{ marginLeft: 10, marginTop: -40 }}
             source={require("../assets/img/logo.png")}
           />
         </View>
-        <View style={{ height: 300 }}>
+        <View style={styles.buttonView}>
           <TouchableOpacity
             activeOpacity={0.9}
             style={styles.button}
@@ -49,6 +49,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "white"
+  },
+  buttonView: {
+    height: 300,
+    backgroundColor: "#663333",
+    width: 400,
+    alignItems: "center"
   },
   button: {
     backgroundColor: "#af7c57",
