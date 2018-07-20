@@ -24,7 +24,7 @@ export default class Catalog extends React.Component {
           label: "Κανονική"
         },
         {
-          label: "Καστανή"
+          label: "Μαύρη"
         },
         {
           label: "Ζαχαρίνη"
@@ -95,47 +95,43 @@ export default class Catalog extends React.Component {
       );
     }
     return (
-      <View style={styles.general}>
-        <Text> {this.props.coffeeTypeName} </Text>
-        <Text style={styles.options}> Ζάχαρη </Text>
-        <View style={{ width: 300 }}>
+      <View style={styles.page}>
+        <View style={styles.general}>
+          <Text style={styles.header}> {this.props.coffeeTypeName} </Text>
+          <Text style={styles.options}> Ζάχαρη </Text>
           <RadioGroup
             radioButtons={this.state.sugar}
             onPress={this._onPressSugar}
             flexDirection="row"
           />
-        </View>
-        <Text style={styles.options}> Τύπος Ζάχαρης </Text>
-        <View style={{ width: 300 }}>
-          <RadioGroup
-            radioButtons={this.state.sugarType}
-            onPress={this._onPressSugarType}
-            flexDirection="row"
-          />
-        </View>
-        <Text style={styles.options}> Καφές </Text>
-        <View style={{ width: 300 }}>
+          <Text style={styles.options}> Τύπος Ζάχαρης </Text>
+          <View>
+            <RadioGroup
+              radioButtons={this.state.sugarType}
+              onPress={this._onPressSugarType}
+              flexDirection="row"
+            />
+          </View>
+          <Text style={styles.options}> Καφές </Text>
           <RadioGroup
             radioButtons={this.state.extra}
             onPress={this._onPressExtra}
             flexDirection="row"
           />
-        </View>
-        <Text style={styles.options}> Γάλα </Text>
-        <View style={{ width: 300 }}>
+          <Text style={styles.options}> Γάλα </Text>
           <RadioGroup
             radioButtons={this.state.milk}
             onPress={this._onPressMilk}
             flexDirection="row"
           />
         </View>
-        <View>
+        <View style={{ alignSelf: "center" }}>
           <TouchableOpacity
             activeOpacity={0.9}
             style={styles.button}
             onPress={this._onPressButton}
           >
-            <Text style={{ alignSelf: "center" }}> ΦΤΙΑΞΕ ΤΟΝ ΚΑΦΕ ΣΟΥ </Text>
+            <Text style={{ alignSelf: "center" }}> ETΟΙΜΟΣ Ο ΚΑΦΕΣ </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -144,12 +140,50 @@ export default class Catalog extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  header: {
+    fontWeight: "800",
+    fontSize: 18,
+    alignSelf: "center",
+    color: "#212121"
+  },
+
+  page: {
+    backgroundColor: "#663333",
+    height: "100%"
+  },
   general: {
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "flex-start",
+    padding: 10,
+    margin: 8,
+    shadowColor: "#000000",
+    shadowOffset: { height: 3, width: 3 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    margin: 10,
+    borderRadius: 10,
+    width: "94%",
+    backgroundColor: "#f9f6f4",
+    elevation: 3,
+    paddingBottom: 80
   },
   options: {
     marginVertical: 10,
-    alignSelf: "flex-start"
+    alignSelf: "flex-start",
+    fontWeight: "600",
+    paddingLeft: -5,
+    color: "#494949"
+  },
+  button: {
+    alignSelf: "center",
+    marginTop: 60,
+    backgroundColor: "#af7c57",
+    width: 260,
+    height: 50,
+    justifyContent: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 4,
+    borderRadius: 3
   }
 });

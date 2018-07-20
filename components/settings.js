@@ -3,7 +3,7 @@ import {
   View,
   Text,
   StyleSheet,
-  TextInput,
+  ActivityIndicator,
   FlatList,
   Image,
   TouchableOpacity
@@ -35,8 +35,12 @@ class Settings extends React.Component {
     const { shopMenu } = this.state;
     const { coffeeTypeName } = this.state;
     return (
-      <View contentContainerStyle={styles.general}>
-        {!shops && <Text> Loading </Text>}
+      <View styles={{ height: "100%" }}>
+        {!shops && (
+          <View style={styles.loading}>
+            <ActivityIndicator size="large" color="#cccccc" />
+          </View>
+        )}
         {shops &&
           shopMenu == null && (
             <View style={styles.general}>
@@ -68,7 +72,7 @@ class Settings extends React.Component {
             </View>
           )}
         {!coffeeTypeName && (
-          <View style={styles.general}>
+          <View style={styles.coffee}>
             <FlatList
               style={{ marginTop: "10%" }}
               data={shopMenu}
@@ -77,12 +81,15 @@ class Settings extends React.Component {
                   onPress={() => this._onPressCoffeeButton(item)}
                 >
                   <View style={styles.card}>
-                    <Text> {item.name} </Text>
+                    <Text style={{ alignItems: "flex-start" }}>
+                      {item.name}
+                    </Text>
                   </View>
                 </TouchableOpacity>
               )}
               keyExtractor={item => item.id}
             />
+            <View style={{ backgroundColor: "black" }} />
           </View>
         )}
         {coffeeTypeName && (
@@ -116,14 +123,31 @@ class Settings extends React.Component {
 
 const styles = StyleSheet.create({
   general: {
-    alignItems: "center"
+    alignItems: "center",
+    backgroundColor: "#663333"
   },
+  coffee: {
+    backgroundColor: "#663333",
+    height: 900
+  },
+  loading: {
+    backgroundColor: "#663333",
+    height: "100%",
+    paddingTop: "75%"
+  },
+
   card: {
-    backgroundColor: "white",
-    borderWidth: 0.8,
-    borderColor: "#e0e2e5",
+    backgroundColor: "#f9f6f4",
     marginVertical: 1,
-    width: 350,
-    height: 60
+    padding: 20,
+    margin: 8,
+    shadowColor: "#000000",
+    shadowOffset: { height: 3, width: 3 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    margin: 10,
+    borderRadius: 10,
+    width: 340,
+    elevation: 3
   }
 });
