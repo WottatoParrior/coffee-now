@@ -1,6 +1,8 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
 import RadioGroup from "react-native-radio-buttons-group";
+import { Actions } from "react-native-router-flux";
+
 import Order from "./order";
 
 export default class Catalog extends React.Component {
@@ -97,7 +99,12 @@ export default class Catalog extends React.Component {
     return (
       <View style={styles.page}>
         <View style={styles.general}>
-          <Text style={styles.header}> {this.props.coffeeTypeName} </Text>
+          <View style={{ flexDirection: "row" }}>
+            <TouchableOpacity onPress={() => Actions.home({})}>
+              <Text> Back</Text>
+            </TouchableOpacity>
+            <Text style={styles.header}> {this.props.coffeeTypeName} </Text>
+          </View>
           <Text style={styles.options}> Ζάχαρη </Text>
           <RadioGroup
             radioButtons={this.state.sugar}
@@ -144,6 +151,7 @@ const styles = StyleSheet.create({
     fontWeight: "800",
     fontSize: 18,
     alignSelf: "center",
+    justifyContent: "center",
     color: "#212121"
   },
 

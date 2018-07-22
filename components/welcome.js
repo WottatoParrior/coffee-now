@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  View,
-  TouchableOpacity,
-  Text,
-  Alert,
-  StyleSheet,
-  Button,
-  Image
-} from "react-native";
+import { View, TouchableOpacity, Text, StyleSheet, Image } from "react-native";
 import Settings from "./settings";
 
 export default class Welcome extends React.Component {
@@ -48,7 +40,7 @@ const styles = StyleSheet.create({
   general: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "white"
+    backgroundColor: "#663333"
   },
   buttonView: {
     height: 300,

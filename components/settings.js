@@ -5,15 +5,49 @@ import {
   StyleSheet,
   ActivityIndicator,
   FlatList,
-  Image,
   TouchableOpacity
 } from "react-native";
 import Catalog from "./catalog";
 import { CardViewWithImage } from "react-native-simple-card-view";
 
-export default class App extends React.Component {
+export default class Parent extends React.Component {
   render() {
     return <Settings />;
+  }
+}
+
+class Shops extends React.Component {
+  render() {
+    return (
+      <View style={styles.general}>
+        <View>
+          <Text>ΕΠΕΛΕΞΕ ΤΟ ΜΑΓΑΖΙ ΣΟΥ</Text>
+        </View>
+
+        <FlatList
+          style={{ height: "98%" }}
+          scrollEnabled={true}
+          data={this.props.shops}
+          renderItem={({ item }) => (
+            <CardViewWithImage
+              width={340}
+              content={
+                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. At aut distinctio!"
+              }
+              source={{ uri: "https://placeimg.com/640/480/tech" }}
+              title={item.name}
+              imageWidth={100}
+              imageHeight={100}
+              roundedImage={true}
+              roundedImageValue={50}
+              imageMargin={{ top: 10 }}
+              onPress={() => this._onPressButton(item)}
+            />
+          )}
+          keyExtractor={item => item.id}
+        />
+      </View>
+    );
   }
 }
 
@@ -24,7 +58,8 @@ class Settings extends React.Component {
       shops: null,
       shopMenu: null,
       coffeeTypeName: null,
-      shopId: null
+      shopId: null,
+      coffeeTypeVisible: null
     };
     this._onPressButton = this._onPressButton.bind(this);
     this._onPressCoffeeButton = this._onPressCoffeeButton.bind(this);
@@ -34,6 +69,7 @@ class Settings extends React.Component {
     const { shops } = this.state;
     const { shopMenu } = this.state;
     const { coffeeTypeName } = this.state;
+    const { coffeeTypeVisible } = this.state;
     return (
       <View styles={{ height: "100%" }}>
         {!shops && (
@@ -41,40 +77,11 @@ class Settings extends React.Component {
             <ActivityIndicator size="large" color="#cccccc" />
           </View>
         )}
-        {shops &&
-          shopMenu == null && (
-            <View style={styles.general}>
-              <View>
-                <Text>ΕΠΕΛΕΞΕ ΤΟ ΜΑΓΑΖΙ ΣΟΥ</Text>
-              </View>
-              <FlatList
-                style={{ height: "93%" }}
-                scrollEnabled={true}
-                data={shops}
-                renderItem={({ item }) => (
-                  <CardViewWithImage
-                    width={340}
-                    content={
-                      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. At aut distinctio!"
-                    }
-                    source={{ uri: "https://placeimg.com/640/480/tech" }}
-                    title={item.name}
-                    imageWidth={100}
-                    imageHeight={100}
-                    roundedImage={true}
-                    roundedImageValue={50}
-                    imageMargin={{ top: 10 }}
-                    onPress={() => this._onPressButton(item)}
-                  />
-                )}
-                keyExtractor={item => item.id}
-              />
-            </View>
-          )}
-        {!coffeeTypeName && (
+        {shopMenu == null && <Shops shops={this.state.shops} />}
+        {coffeeTypeVisible == true && (
           <View style={styles.coffee}>
             <FlatList
-              style={{ marginTop: "10%" }}
+              style={{ marginTop: "10%", height: 700 }}
               data={shopMenu}
               renderItem={({ item }) => (
                 <TouchableOpacity
@@ -103,10 +110,19 @@ class Settings extends React.Component {
     );
   }
   _onPressButton = item => {
-    this.setState({ shopMenu: item.menu.products, shopId: item.id });
+    this.setState({
+      shopMenu: item.menu.products,
+      shopId: item.id,
+      shop: null,
+      coffeeTypeVisible: true
+    });
   };
   _onPressCoffeeButton = item => {
-    this.setState({ coffeeTypeName: item.name, productId: item.id });
+    this.setState({
+      coffeeTypeName: item.name,
+      productId: item.id,
+      coffeeTypeVisible: null
+    });
   };
   componentDidMount() {
     fetch("https://coffeenow-api.herokuapp.com/shops")
@@ -124,16 +140,16 @@ class Settings extends React.Component {
 const styles = StyleSheet.create({
   general: {
     alignItems: "center",
-    backgroundColor: "#663333"
+    backgroundColor: "#663333",
+    height: "100%"
   },
   coffee: {
-    backgroundColor: "#663333",
-    height: 900
+    backgroundColor: "#663333"
   },
   loading: {
     backgroundColor: "#663333",
-    height: "100%",
-    paddingTop: "75%"
+    paddingTop: "75%",
+    height: "100%"
   },
 
   card: {

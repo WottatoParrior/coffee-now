@@ -1,40 +1,21 @@
 import React from "react";
-import { View, AsyncStorage, AppRegistry } from "react-native";
+import { AppRegistry } from "react-native";
+import { Scene, Stack, Router } from "react-native-router-flux";
 
-import OrderComponent from "./components/order";
-import Welcome from "./components/welcome";
+import Start from "./app";
+import Parent from "./components/settings";
 
-global.app = null;
-
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    global.app = this;
-    this.state = { settings: null };
-  }
-
-  componentWillMount() {
-    AsyncStorage.getItem("@coffeenow:settings")
-      .then(data => {
-        console.log(data);
-        this.setState({ settings: data });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
+class App extends React.Component {
   render() {
-    const { settings } = this.state;
-
-    if (!settings) {
-      return (
-        <View>
-          <Welcome />
-        </View>
-      );
-    }
-
-    return <OrderComponent {...this.state} />;
+    return (
+      <Router>
+        <Stack key="root">
+          <Scene key="home" component={Start} hideNavBar />
+          <Scene key="shops" component={Parent} title="sdsds" />
+        </Stack>
+      </Router>
+    );
   }
 }
+
 AppRegistry.registerComponent("CoffeeNow", () => App);
