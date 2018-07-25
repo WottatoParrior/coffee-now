@@ -7,7 +7,6 @@ import {
   FlatList,
   TouchableOpacity
 } from "react-native";
-import { Actions } from "react-native-router-flux";
 
 import Catalog from "./catalog";
 import Shops from "./shops";

@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
 import RadioGroup from "react-native-radio-buttons-group";
-import { Actions } from "react-native-router-flux";
 
 import Order from "./order";
 
@@ -138,7 +137,9 @@ export default class Catalog extends React.Component {
             style={styles.button}
             onPress={this._onPressButton}
           >
-            <Text style={{ alignSelf: "center" }}> ETΟΙΜΟΣ Ο ΚΑΦΕΣ </Text>
+            <Text style={{ alignSelf: "center", color: "white" }}>
+              ETΟΙΜΟΣ Ο ΚΑΦΕΣ
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -156,7 +157,7 @@ const styles = StyleSheet.create({
   },
 
   page: {
-    backgroundColor: "#663333",
+    backgroundColor: "#f9f6f4",
     height: "100%"
   },
   general: {
@@ -171,7 +172,7 @@ const styles = StyleSheet.create({
     margin: 10,
     borderRadius: 10,
     width: "94%",
-    backgroundColor: "#f9f6f4",
+    backgroundColor: "white",
     elevation: 3,
     paddingBottom: 80
   },

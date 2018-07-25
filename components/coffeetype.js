@@ -33,20 +33,19 @@ export default class CoffeeType extends React.Component {
 
 const styles = StyleSheet.create({
   coffee: {
-    backgroundColor: "#663333"
+    backgroundColor: "#f9f6f4"
   },
   card: {
-    backgroundColor: "#f9f6f4",
-    marginVertical: 1,
-    padding: 20,
-    margin: 8,
-    shadowColor: "#000000",
-    shadowOffset: { height: 3, width: 3 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    margin: 10,
-    borderRadius: 10,
-    width: 340,
-    elevation: 3
+    backgroundColor: "white",
+    alignSelf: "center",
+    width: "90%",
+    padding: 10,
+    margin: 5,
+    height: 50,
+    justifyContent: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 3,
+    borderRadius: 3
   }
 });

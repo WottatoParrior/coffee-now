@@ -4,8 +4,6 @@ import { View, AsyncStorage, AppRegistry } from "react-native";
 import OrderComponent from "./components/order";
 import Welcome from "./components/welcome";
 
-global.app = null;
-
 export default class Start extends React.Component {
   constructor(props) {
     super(props);

@@ -29,7 +29,9 @@ export default class Welcome extends React.Component {
             style={styles.button}
             onPress={this._onPressButton}
           >
-            <Text style={{ alignSelf: "center" }}> ΦΤΙΑΞΕ ΤΟΝ ΚΑΦΕ ΣΟΥ </Text>
+            <Text style={{ alignSelf: "center", color: "white" }}>
+              ΦΤΙΑΞΕ ΤΟΝ ΚΑΦΕ ΣΟY
+            </Text>
           </TouchableOpacity>
         </View>
       </View>

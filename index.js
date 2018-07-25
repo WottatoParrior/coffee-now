@@ -1,24 +1,21 @@
 import React from "react";
-import { AppRegistry } from "react-native";
-import { Scene, Stack, Router } from "react-native-router-flux";
+import { View, Text, AppRegistry } from "react-native";
+import { createStackNavigator } from "react-navigation";
 
-import Start from "./app";
-import Parent from "./components/settings";
-import CoffeeType from "./components/coffeetype";
-import Catalog from "./components/catalog";
+import Start from "../coffee-now/components/welcome";
 
-class App extends React.Component {
+const RootStack = createStackNavigator({
+  Home: {
+    screen: Start,
+    navigationOptions: {
+      header: null
+    }
+  }
+});
+
+export default class App extends React.Component {
   render() {
-    return (
-      <Router>
-        <Stack key="root">
-          <Scene key="home" component={Start} hideNavBar />
-          <Scene key="shops" component={Parent} title="sdsds" />
-          <Scene key="coffee" component={CoffeeType} title="something" />
-          <Scene key="catalog" component={Catalog} title="doesnt matter" />
-        </Stack>
-      </Router>
-    );
+    return <RootStack />;
   }
 }
 

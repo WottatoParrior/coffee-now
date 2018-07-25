@@ -7,7 +7,7 @@ export default class Shops extends React.Component {
     return (
       <View style={styles.general}>
         <View>
-          <Text>ΕΠΕΛΕΞΕ ΤΟ ΜΑΓΑΖΙ ΣΟΥ</Text>
+          <Text style={{ color: "white" }}>ΕΠΕΛΕΞΕ ΚΑΤΑΣΤΗΜΑ</Text>
         </View>
 
         <FlatList
@@ -40,7 +40,7 @@ export default class Shops extends React.Component {
 const styles = StyleSheet.create({
   general: {
     alignItems: "center",
-    backgroundColor: "#663333",
+    backgroundColor: "#f9f6f4",
     height: "100%"
   }
 });
