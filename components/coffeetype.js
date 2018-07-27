@@ -9,14 +9,20 @@ import {
 
 export default class CoffeeType extends React.Component {
   render() {
+    const { navigation } = this.props;
+    const product = navigation.getParam("shopMenu", "NO-ID");
     return (
       <View style={styles.coffee}>
         <FlatList
           style={{ marginTop: "10%", height: 700 }}
-          data={this.props.shopMenu}
+          data={product}
           renderItem={({ item }) => (
             <TouchableOpacity
-              onPress={() => this.props._onPressCoffeeButton(item)}
+              onPress={() =>
+                this.props.navigation.push("Catalog", {
+                  CoffeeTypeName: item.name
+                })
+              }
             >
               <View style={styles.card}>
                 <Text style={{ alignItems: "flex-start" }}>{item.name}</Text>

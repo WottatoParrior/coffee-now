@@ -27,7 +27,7 @@ export default class Welcome extends React.Component {
           <TouchableOpacity
             activeOpacity={0.9}
             style={styles.button}
-            onPress={this._onPressButton}
+            onPress={() => this.props.navigation.navigate("Shops")}
           >
             <Text style={{ alignSelf: "center", color: "white" }}>
               ΦΤΙΑΞΕ ΤΟΝ ΚΑΦΕ ΣΟY

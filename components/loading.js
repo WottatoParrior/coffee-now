@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
   loading: {
     backgroundColor: "#663333",
     paddingTop: "75%",
-    height: "100%"
+    height: "100%",
+    width: 1000
   }
 });

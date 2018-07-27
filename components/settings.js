@@ -15,7 +15,7 @@ import Loading from "./loading";
 
 export default class Parent extends React.Component {
   render() {
-    return <Settings />;
+    return <Settings navigation={this.props.navigation} />;
   }
 }
 
@@ -35,6 +35,7 @@ class Settings extends React.Component {
 
   render() {
     const { shops } = this.state;
+    const { navigator } = this.props;
     const { shopMenu } = this.state;
     const { coffeeTypeName } = this.state;
     const { coffeeTypeVisible } = this.state;
@@ -42,12 +43,9 @@ class Settings extends React.Component {
       <View styles={{ height: "100%" }}>
         {!shops && <Loading />}
         {shopMenu == null && (
-          <Shops
-            shops={this.state.shops}
-            _onPressButton={this._onPressButton}
-          />
+          <Shops shops={this.state.shops} navigation={this.props.navigation} />
         )}
-        {coffeeTypeVisible == true && (
+        {/* {coffeeTypeVisible == true && (
           <CoffeeType
             shopMenu={this.state.shopMenu}
             _onPressCoffeeButton={this._onPressCoffeeButton}
@@ -59,16 +57,14 @@ class Settings extends React.Component {
             shopId={this.state.shopId}
             productId={this.state.productId}
           />
-        )}
+        )} */}
       </View>
     );
   }
   _onPressButton = item => {
     this.setState({
       shopMenu: item.menu.products,
-      shopId: item.id,
-      shop: null,
-      coffeeTypeVisible: true
+      shopId: item.id
     });
   };
   _onPressCoffeeButton = item => {

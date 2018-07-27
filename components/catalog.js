@@ -58,6 +58,8 @@ export default class Catalog extends React.Component {
   _onPressMilk = milk => this.setState({ milk });
 
   render() {
+    const { navigation } = this.props;
+    const name = navigation.getParam("CoffeeTypeName", "name-not-found");
     let selectedButtonSugar = this.state.sugar.find(e => e.selected == true);
     let selectedButtonSugarType = this.state.sugarType.find(
       e => e.selected == true
@@ -99,10 +101,7 @@ export default class Catalog extends React.Component {
       <View style={styles.page}>
         <View style={styles.general}>
           <View style={{ flexDirection: "row" }}>
-            <TouchableOpacity onPress={() => Actions.home({})}>
-              <Text> Back</Text>
-            </TouchableOpacity>
-            <Text style={styles.header}> {this.props.coffeeTypeName} </Text>
+            <Text style={styles.header}> {name} </Text>
           </View>
           <Text style={styles.options}> Ζάχαρη </Text>
           <RadioGroup
@@ -135,7 +134,16 @@ export default class Catalog extends React.Component {
           <TouchableOpacity
             activeOpacity={0.9}
             style={styles.button}
-            onPress={this._onPressButton}
+            onPress={() =>
+              this.props.navigation.navigate("Order", {
+                sugar: selectedButtonSugar,
+                sugarType: selectedButtonSugarType,
+                milk: selectedButtonMilk,
+                extra: selectedButtonExtra,
+                shopId: this.props.shopId,
+                productId: this.props.productId
+              })
+            }
           >
             <Text style={{ alignSelf: "center", color: "white" }}>
               ETΟΙΜΟΣ Ο ΚΑΦΕΣ

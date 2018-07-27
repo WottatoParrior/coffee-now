@@ -1,11 +1,18 @@
 import React from "react";
 import { View, Text, FlatList, StyleSheet } from "react-native";
 import { CardViewWithImage } from "react-native-simple-card-view";
+import Loading from "./loading";
 
 export default class Shops extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { shops: null };
+  }
   render() {
+    const { shops } = this.state;
     return (
       <View style={styles.general}>
+        <View>{!shops && <Loading />}</View>
         <View>
           <Text style={{ color: "white" }}>ΕΠΕΛΕΞΕ ΚΑΤΑΣΤΗΜΑ</Text>
         </View>
@@ -13,7 +20,7 @@ export default class Shops extends React.Component {
         <FlatList
           style={{ height: "98%" }}
           scrollEnabled={true}
-          data={this.props.shops}
+          data={this.state.shops}
           renderItem={({ item }) => (
             <CardViewWithImage
               width={340}
@@ -27,13 +34,28 @@ export default class Shops extends React.Component {
               roundedImage={true}
               roundedImageValue={50}
               imageMargin={{ top: 10 }}
-              onPress={() => this.props._onPressButton(item)}
+              onPress={() =>
+                this.props.navigation.push("Coffee", {
+                  shopMenu: item.menu.products
+                })
+              }
             />
           )}
           keyExtractor={item => item.id}
         />
       </View>
     );
+  }
+  componentDidMount() {
+    fetch("https://coffeenow-api.herokuapp.com/shops")
+      .then(response => response.json())
+      .then(responseJson => {
+        console.log("responseJson", responseJson);
+        this.setState({ shops: responseJson.data });
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 }
 

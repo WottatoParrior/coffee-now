@@ -29,30 +29,42 @@ export default class Order extends React.Component {
   }
 
   render() {
-    console.log(this.state);
-
+    const { navigation } = this.props;
+    const sugar = navigation.getParam("sugar", "unknown");
+    const sugarType = navigation.getParam("sugarType", "unknown");
+    const milk = navigation.getParam("milk", "unknown");
+    const extra = navigation.getParam("extra", "unknown");
+    const shopId = navigation.getParam("shopId", "unknown");
+    const productId = navigation.getParam("productId", "unknown");
     return (
       <View style={styles.general}>
         <View
           style={{
-            width: 200,
-            shadowColor: "#000",
-            shadowOffset: { width: 100, height: 20 },
-            elevation: 10,
-            height: 200,
-            borderRadius: 200,
-            backgroundColor: "#a37656"
+            alignSelf: "flex-end",
+            padding: 10,
+            margin: 5
           }}
         >
-          <TouchableOpacity
-            activeOpacity={0.6}
-            onPress={() => this._onPressButton()}
-          >
-            <Image
-              style={styles.image}
-              source={require("../assets/img/coffeenow.png")}
-            />
+          <TouchableOpacity onPress={() => this.props.navigation.push("Shops")}>
+            <Text
+              style={{ fontWeight: "bold", textDecorationLine: "underline" }}
+            >
+              Άλλαξε τον καφέ σου
+            </Text>
           </TouchableOpacity>
+        </View>
+        <View style={styles.buttonContainer}>
+          <View style={styles.buttonBackground}>
+            <TouchableOpacity
+              activeOpacity={0.6}
+              onPress={() => this._onPressButton()}
+            >
+              <Image
+                style={styles.image}
+                source={require("../assets/img/coffeenow.png")}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     );
@@ -63,11 +75,21 @@ const styles = StyleSheet.create({
   general: {
     height: "100%",
     paddingTop: 0,
-    alignItems: "center",
-    justifyContent: "center",
     backgroundColor: "#f9f6f4"
   },
-
+  buttonContainer: {
+    alignSelf: "center",
+    marginTop: "40%"
+  },
+  buttonBackground: {
+    width: 200,
+    shadowColor: "#000",
+    shadowOffset: { width: 100, height: 20 },
+    elevation: 10,
+    height: 200,
+    borderRadius: 200,
+    backgroundColor: "#a37656"
+  },
   image: {
     alignSelf: "center",
     borderRadius: 5000,
