@@ -13,10 +13,6 @@ export default class Shops extends React.Component {
     return (
       <View style={styles.general}>
         <View>{!shops && <Loading />}</View>
-        <View>
-          <Text style={{ color: "white" }}>ΕΠΕΛΕΞΕ ΚΑΤΑΣΤΗΜΑ</Text>
-        </View>
-
         <FlatList
           style={{ height: "98%" }}
           scrollEnabled={true}
@@ -35,8 +31,9 @@ export default class Shops extends React.Component {
               roundedImageValue={50}
               imageMargin={{ top: 10 }}
               onPress={() =>
-                this.props.navigation.push("Coffee", {
-                  shopMenu: item.menu.products
+                this.props.navigation.navigate("Coffee", {
+                  shopMenu: item.menu.products,
+                  shopId: item.id
                 })
               }
             />

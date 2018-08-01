@@ -49,9 +49,6 @@ export default class Catalog extends React.Component {
       ]
     };
   }
-  _onPressButton = () => {
-    this.setState({ visible: true });
-  };
   _onPressSugar = sugar => this.setState({ sugar });
   _onPressSugarType = sugarType => this.setState({ sugarType });
   _onPressExtra = extra => this.setState({ extra });
@@ -60,6 +57,10 @@ export default class Catalog extends React.Component {
   render() {
     const { navigation } = this.props;
     const name = navigation.getParam("CoffeeTypeName", "name-not-found");
+    const shopId = navigation.getParam("shopId", "unknown");
+    const productId = navigation.getParam("productId", "unknown");
+    const shopMenu = navigation.getParam("shopMenu", "unknown");
+
     let selectedButtonSugar = this.state.sugar.find(e => e.selected == true);
     let selectedButtonSugarType = this.state.sugarType.find(
       e => e.selected == true
@@ -79,24 +80,6 @@ export default class Catalog extends React.Component {
     selectedButtonMilk = selectedButtonMilk
       ? selectedButtonMilk.value
       : this.state.milk[0].label;
-    console.log(
-      selectedButtonSugar,
-      selectedButtonSugarType,
-      selectedButtonExtra,
-      selectedButtonMilk
-    );
-    if (this.state.visible) {
-      return (
-        <Order
-          sugar={selectedButtonSugar}
-          sugarType={selectedButtonSugarType}
-          milk={selectedButtonMilk}
-          extra={selectedButtonExtra}
-          shopId={this.props.shopId}
-          productId={this.props.productId}
-        />
-      );
-    }
     return (
       <View style={styles.page}>
         <View style={styles.general}>
@@ -135,13 +118,15 @@ export default class Catalog extends React.Component {
             activeOpacity={0.9}
             style={styles.button}
             onPress={() =>
-              this.props.navigation.navigate("Order", {
+              this.props.navigation.replace("Order", {
                 sugar: selectedButtonSugar,
                 sugarType: selectedButtonSugarType,
                 milk: selectedButtonMilk,
                 extra: selectedButtonExtra,
-                shopId: this.props.shopId,
-                productId: this.props.productId
+                shopId: shopId,
+                productId: productId,
+                shopMenu: shopMenu,
+                name: name
               })
             }
           >

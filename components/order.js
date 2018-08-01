@@ -1,5 +1,13 @@
 import React from "react";
-import { View, StyleSheet, TouchableOpacity, Image, Text } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  BackHandler,
+  ToastAndroid,
+  Text
+} from "react-native";
 
 export default class Order extends React.Component {
   constructor(props) {
@@ -12,6 +20,22 @@ export default class Order extends React.Component {
       shopId: this.props.shopId,
       productId: this.props.productId
     };
+  }
+
+  componentDidMount() {
+    BackHandler.addEventListener("hardwareBackPress", this.handleBackButton);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener("hardwareBackPress", this.handleBackButton);
+  }
+
+  handleBackButton() {
+    ToastAndroid.show(
+      "Χρησιμοποίησε τις ρυθμίσεις για να αλλάξεις την παραγγελία σου",
+      ToastAndroid.SHORT
+    );
+    return true;
   }
 
   _onPressButton() {
@@ -36,22 +60,27 @@ export default class Order extends React.Component {
     const extra = navigation.getParam("extra", "unknown");
     const shopId = navigation.getParam("shopId", "unknown");
     const productId = navigation.getParam("productId", "unknown");
+    const shopMenu = navigation.getParam("shopMenu", "unknown");
+    const name = navigation.getParam("name", "not-found");
     return (
       <View style={styles.general}>
         <View
           style={{
-            alignSelf: "flex-end",
+            alignSelf: "flex-start",
             padding: 10,
             margin: 5
           }}
         >
-          <TouchableOpacity onPress={() => this.props.navigation.push("Shops")}>
-            <Text
-              style={{ fontWeight: "bold", textDecorationLine: "underline" }}
+          <View style={styles.smallRound}>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.push("Shops")}
             >
-              Άλλαξε τον καφέ σου
-            </Text>
-          </TouchableOpacity>
+              <Image
+                style={{ height: 26, width: 26 }}
+                source={require("../assets/img/settings.png")}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
         <View style={styles.buttonContainer}>
           <View style={styles.buttonBackground}>
@@ -66,12 +95,36 @@ export default class Order extends React.Component {
             </TouchableOpacity>
           </View>
         </View>
+        <View style={styles.orderReview}>
+          <Text style={styles.orderHeader}> Η παραγγελία σου : </Text>
+          <View style={{ flexDirection: "row", margin: 4, padding: 4 }}>
+            <Text style={{ color: "#494949", textDecorationLine: "underline" }}>
+              {name}
+            </Text>
+          </View>
+          <View style={{ flexDirection: "column" }}>
+            <Text style={{ fontSize: 10, marginHorizontal: 15 }}>
+              {sugar}, {sugarType},{extra},{milk}
+            </Text>
+          </View>
+        </View>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  smallRound: {
+    height: 50,
+    width: 50,
+    borderRadius: 300,
+    backgroundColor: "#e88b58",
+    alignItems: "center",
+    justifyContent: "center",
+    margin: 5,
+    shadowColor: "#000",
+    elevation: 7
+  },
   general: {
     height: "100%",
     paddingTop: 0,
@@ -79,7 +132,8 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     alignSelf: "center",
-    marginTop: "40%"
+    marginTop: "10%",
+    marginBottom: "15%"
   },
   buttonBackground: {
     width: 200,
@@ -95,5 +149,18 @@ const styles = StyleSheet.create({
     borderRadius: 5000,
     height: 195,
     width: 195
+  },
+  orderReview: {
+    margin: 8,
+    padding: 8,
+    borderRadius: 3,
+    elevation: 3,
+    backgroundColor: "white",
+    minHeight: "20%"
+  },
+  orderHeader: {
+    color: "#212121",
+    fontWeight: "800",
+    fontSize: 16
   }
 });

@@ -18,13 +18,13 @@ const RootStack = createStackNavigator({
   Shops: {
     screen: Shops,
     navigationOptions: {
-      header: null
+      title: "Επέλεξε κατάστημα"
     }
   },
   Coffee: {
     screen: CoffeeType,
     navigationOptions: {
-      header: null
+      title: "Διάλεξε τι θα πάρεις"
     }
   },
   Catalog: {
